@@ -8,8 +8,8 @@ public class StandardModal extends BaseTest {
        return driver.findElement(By.xpath("//input[@name='"+name+"']"));
       }
 
-      public static WebElement getButtonElement(String name){
-       return driver.findElement(By.xpath("//button[@name='"+name+"']"));
+      public static By getButtonElement(String name){
+       return By.xpath("//button[@name='"+name+"']");
       }
       
 

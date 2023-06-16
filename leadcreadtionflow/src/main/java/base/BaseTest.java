@@ -17,13 +17,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.asserts.IAssert;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import pages.Pages1;
+import pages.ControlActions;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 
-public class BaseTest extends Pages1 {
+public class BaseTest extends ControlActions {
 
     public static WebDriver driver;
     public static WebDriverWait wait;
