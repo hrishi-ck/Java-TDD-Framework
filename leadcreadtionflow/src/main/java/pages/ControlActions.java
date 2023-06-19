@@ -7,12 +7,14 @@ import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,6 +71,65 @@ public class ControlActions{
     public static void waitForElementToBeClickable(By loc){
     WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
       wait.until(ExpectedConditions.elementToBeClickable(loc));
+    }
+    public static void waitForElementToBeVisible(By loc) {
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
+    }
+    public static void waitForElementToBeEnabled(final By loc) {
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        wait.until(
+            new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver){ //cannot use without webdriver parameter cause it is the signature of apply method
+                    WebElement element = test.getDriver().findElement(loc);
+                    return element.isEnabled();
+                }
+            }
+        );
+    }
+    public static void waitForElementToBeDisabled(final By loc) {
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        wait.until(
+            new ExpectedCondition<Boolean>() {
+                @Override
+                public Boolean apply(WebDriver driver){ //cannot use without webdriver parameter cause it is the signature of apply method
+                    WebElement element = test.getDriver().findElement(loc);
+                    return !element.isEnabled();
+                }
+            }
+        );
+    }
+
+    public static void waitForElementToBeSelected(By loc) {
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeSelected(loc));
+    }
+
+    public static void switchToFrame(By frameLoc) {
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(frameLoc));
+    }
+
+    public static void acceptAlert(By loc){
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        Alert alert = test.getDriver().switchTo().alert();
+        wait.until(ExpectedConditions.alertIsPresent());
+        alert.accept();
+    }
+
+    public static void dismissAlert(By loc){
+        //WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        Alert alert = test.getDriver().switchTo().alert();
+        //wait.until(ExpectedConditions.alertIsPresent());
+        alert.dismiss();
+    }
+
+    public static String getAlertText(By loc){
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        Alert alert = test.getDriver().switchTo().alert();
+        wait.until(ExpectedConditions.alertIsPresent());
+        return alert.getText();
     }
 
     public static void waitForElementToBe(By loc,String action) throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException{

@@ -12,6 +12,8 @@ import pages.interfaces.Clickable;
 import pages.interfaces.TextField;
 import structure.LeadDetails;
 import base.Assertion;
+import com.github.javafaker.Faker;
+
 
 public class EndToEndFlow extends BaseTest {
 
@@ -30,19 +32,21 @@ public class EndToEndFlow extends BaseTest {
 
         click.clickOn(By.xpath("//span[text()=\"New Lead\"]/..//lightning-icon//span"));
         // Thread.sleep(10000);
-        data.setFirstName("Pavitra");
-        data.setLastName("Prabhakar");
-        data.setCompanyName("Spiderverse");
-        data.setPhoneNumber("3296574765");
-        data.setEmail("pavitraprabhakar@yopmail.com");
+        Faker faker = new Faker();
+        data.setFirstName(faker.name().firstName());
+        data.setLastName(faker.name().lastName());
+        data.setCompanyName(faker.name().lastName() + " services");
+        data.setPhoneNumber(faker.phoneNumber().phoneNumber());
+        data.setEmail(faker.internet().emailAddress());
         // set.setText(driver.findElement(By.xpath("//input[@name=\"firstName\"]")), data.getFirstName());
         set.setText(StandardModal.getLeadElement("firstName"), data.getFirstName());
         set.setText(StandardModal.getLeadElement("lastName"), data.getLastName());
         set.setText(StandardModal.getLeadElement("Company"), data.getCompanyName());
         set.setText(StandardModal.getLeadElement("Phone"), data.getPhoneNumber());
         set.setText(StandardModal.getLeadElement("Email"), data.getEmail());
+        Thread.sleep(3000);
         click.clickOn(StandardModal.getButtonElement("SaveEdit"));
-        // Thread.sleep(3000);
+        Thread.sleep(3000);
         click.clickOn(By.xpath("//a[@data-tab-value='detailTab']"));
 
 

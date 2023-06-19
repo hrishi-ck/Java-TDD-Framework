@@ -5,19 +5,28 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class Settings {
     public JSONObject getEnvironment(){
-        try{FileReader reader = new FileReader("src/main/resources/environment.json");
-        JSONParser jsonParser = new JSONParser();
-        JSONObject object = (JSONObject) jsonParser.parse(reader);
-        return (JSONObject) object;
-         } catch (IOException | ParseException e) {
+        FileReader reader = null;
+        try {
+            reader = new FileReader("src/main/resources/environment.json");
+            JSONParser jsonParser = new JSONParser();
+            return (JSONObject) jsonParser.parse(reader);
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
-        }
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }        
         return null;
         }
     
