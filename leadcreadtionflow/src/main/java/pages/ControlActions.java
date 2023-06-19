@@ -47,7 +47,8 @@ public class ControlActions implements Interfaces{
         WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
 
-        test.getDriver().findElement(loc).sendKeys(text);   
+        test.getDriver().findElement(loc).clear(); //clear text
+        test.getDriver().findElement(loc).sendKeys(text); //set text
     }
      @Override
     public void selectFromList(WebElement dropdown, WebElement item) throws InterruptedException{
