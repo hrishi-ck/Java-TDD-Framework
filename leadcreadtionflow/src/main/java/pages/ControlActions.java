@@ -46,7 +46,7 @@ public class ControlActions implements Interfaces{
     public void setText(By loc, String text){
         WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
-
+        test.getDriver().findElement(loc).clear(); //clear text
         test.getDriver().findElement(loc).sendKeys(text); 
     }
      @Override
