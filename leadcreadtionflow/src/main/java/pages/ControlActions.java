@@ -22,13 +22,13 @@ import base.BaseTest;
 import io.netty.handler.timeout.TimeoutException;
 
  
-public class ControlActions implements Interfaces{
+public class ControlActions{
     public WebDriver getDriver(){
         return null;
     }
    
     static BaseTest test=new BaseTest();
-     @Override
+
     public void clickOn(By loc) throws InterruptedException{
         try {
         WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
@@ -42,14 +42,14 @@ public class ControlActions implements Interfaces{
         }      
 
     }
-     @Override
+   
     public void setText(By loc, String text){
         WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
         test.getDriver().findElement(loc).clear(); //clear text
         test.getDriver().findElement(loc).sendKeys(text); 
     }
-     @Override
+  
     public void selectFromList(WebElement dropdown, WebElement item) throws InterruptedException{
      dropdown.click();
      Thread.sleep(2000);
