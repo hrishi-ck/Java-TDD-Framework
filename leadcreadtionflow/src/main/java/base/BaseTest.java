@@ -42,13 +42,12 @@ public class BaseTest extends ControlActions {
 
     @BeforeMethod(alwaysRun = true)
     public void login() throws InterruptedException{
-        Thread.sleep(10000);
         WebElement usernameelement = driver.findElement(By.xpath("//input[@name='username']"));
         usernameelement.sendKeys("saikat@cloudkaptan.com");
         WebElement passwordelemenet = driver.findElement(By.xpath("//input[@name='pw']"));
         passwordelemenet.sendKeys("Cloudkaptan$123");
         driver.findElement(By.xpath("//input[@name='Login']")).click();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15000));
+        //wait = new WebDriverWait(driver, Duration.ofSeconds(15000));
         //Thread.sleep(30000);
     }
 

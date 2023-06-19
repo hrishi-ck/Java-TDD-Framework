@@ -3,6 +3,7 @@ package pages;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
+import java.util.NoSuchElementException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,27 +19,38 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import base.BaseTest;
+import io.netty.handler.timeout.TimeoutException;
 
  
-public class ControlActions{
+public class ControlActions implements Interfaces{
     public WebDriver getDriver(){
         return null;
     }
-    
+   
     static BaseTest test=new BaseTest();
-    public static void clickOn(By loc) throws InterruptedException{
+     @Override
+    public void clickOn(By loc) throws InterruptedException{
+        try {
         WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.presenceOfElementLocated(loc));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
         Actions actions = new Actions(test.getDriver());
         actions.click(test.getDriver().findElement(loc)).build().perform();
-      
-    }
+        } catch (NoSuchElementException e) {
+        System.out.println("Element not found");
+        } catch (TimeoutException e) {
+        System.out.println("Timeout waiting for element");
+        }      
 
-    public static void setText(WebElement element, String text){
-        element.sendKeys(text);   
     }
+     @Override
+    public void setText(By loc, String text){
+        WebDriverWait wait = new WebDriverWait(test.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(loc));
 
-    public static void selectFromList(WebElement dropdown, WebElement item) throws InterruptedException{
+        test.getDriver().findElement(loc).sendKeys(text);   
+    }
+     @Override
+    public void selectFromList(WebElement dropdown, WebElement item) throws InterruptedException{
      dropdown.click();
      Thread.sleep(2000);
      item.click();
