@@ -1,8 +1,11 @@
 package base;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONException;
+import org.json.simple.parser.ParseException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,6 +19,7 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.asserts.IAssert;
 
+import framework.Settings;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import pages.ControlActions;
 
@@ -41,11 +45,12 @@ public class BaseTest extends ControlActions {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void login() throws InterruptedException{
+    public void login() throws InterruptedException, JSONException, IOException, ParseException{
+        Settings settings=new Settings();
         WebElement usernameelement = driver.findElement(By.xpath("//input[@name='username']"));
-        usernameelement.sendKeys("saikat@cloudkaptan.com");
+        usernameelement.sendKeys(settings.getUsername());
         WebElement passwordelemenet = driver.findElement(By.xpath("//input[@name='pw']"));
-        passwordelemenet.sendKeys("Cloudkaptan$123");
+        passwordelemenet.sendKeys(settings.getPassword());
         driver.findElement(By.xpath("//input[@name='Login']")).click();
         //wait = new WebDriverWait(driver, Duration.ofSeconds(15000));
         //Thread.sleep(30000);
