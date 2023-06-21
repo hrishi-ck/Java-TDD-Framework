@@ -56,7 +56,7 @@ public class ControlActions{
      dropdown.click();
      Thread.sleep(2000);
      item.click();
-     Thread.sleep(500);
+     Thread.sleep(400);
     }
 
     public static void scrollIntoView(WebElement element) {

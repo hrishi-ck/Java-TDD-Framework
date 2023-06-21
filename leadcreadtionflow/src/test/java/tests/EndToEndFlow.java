@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 
 import base.BaseTest;
 import base.StandardModal;
-import pages.ControlActions;
 import pages.implementation.ClickOn;
 import pages.implementation.SetText;
 import pages.interfaces.Clickable;
